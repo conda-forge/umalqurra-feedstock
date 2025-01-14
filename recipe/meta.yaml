@@ -6,23 +6,25 @@ package:
 
 source:
   fn: umalqurra-{{ version }}.tar.gz
-  url: https://pypi.io/packages/source/u/umalqurra/umalqurra-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/u/umalqurra/umalqurra-{{ version }}.tar.gz
   sha256: 719f6a36f908ada1c29dae0d934dd0f1e1f6e3305784edbec23ad719397de678
 
 build:
   noarch: python
-  number: 1
-  script: python -m pip install --no-deps --ignore-installed .
+  number: 2
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
 
 requirements:
   host:
     - pip
-    - python
+    - python {{ python_min }}
     - setuptools
   run:
-    - python
+    - python >={{ python_min }}
 
 test:
+  requires:
+    - python {{ python_min }}
   imports:
     - umalqurra
 
